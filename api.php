@@ -2,6 +2,8 @@
   if (!isset($_POST["action"])) header("Location: index.html");
   else {
     session_start();
+    
+    $host = "ftp.dlptest.com";
 
     // attempt login, assign to session
     if ($_POST["action"] == "login") {
@@ -11,7 +13,7 @@
       else {
         if (empty($_POST["user"]) || empty($_POST["pass"])) echo("Invalid request! Just what are you trying to do? Don't molest me!");
         else {
-          $ftp = ftp_connect("ftp.dlptest.com", 21, 5);
+          $ftp = ftp_connect($host, 21, 5);
           // PW server is down
           if (!$ftp) echo(json_encode(array(
             "status" => "error",
@@ -20,10 +22,11 @@
           // continue with username & password
           else {
             // proceed
-            if (@ftp_login($ftp, strtolower($_POST["user"]), strtoupper($_POST["pass"]))) {
+            if ($host == "projectsday.hci.edu.sg") $_POST["pass"] = strtoupper($_POST["pass"]);
+            if (@ftp_login($ftp, strtolower($_POST["user"]), $_POST["pass"])) {
               ftp_close($ftp); // be a polite user
               $_SESSION["user"] = strtolower($_POST["user"]);
-              $_SESSION["pass"] = strtoupper($_POST["pass"]);
+              $_SESSION["pass"] = $_POST["pass"];
               update_stats("logins");
               echo(json_encode(array(
                 "status" => "ok"
@@ -58,7 +61,7 @@
       // yes there's a session, try to list directory
       $time_start = microtime(true);
       if (isset($_SESSION["user"])) {
-        $ftp = ftp_connect("ftp.dlptest.com", 21, 5); $connect_time = microtime(true) - $time_start;
+        $ftp = ftp_connect($host, 21, 5); $connect_time = microtime(true) - $time_start;
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -108,7 +111,7 @@
     else if ($_POST["action"] == "delete report") {
       // yes there's a session, try to list directory
       if (isset($_SESSION["user"])) {
-        $ftp = ftp_connect("ftp.dlptest.com", 21, 5);
+        $ftp = ftp_connect($host, 21, 5);
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -152,7 +155,7 @@
     else if ($_POST["action"] == "upload pdf") {
       // yes there's a session, try to list directory
       if (isset($_SESSION["user"])) {
-        $ftp = ftp_connect("ftp.dlptest.com", 21, 5);
+        $ftp = ftp_connect($host, 21, 5);
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
