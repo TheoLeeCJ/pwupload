@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>File Manager | PWupload</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <link href="advanced.css" rel="stylesheet" />
+  </head>
+
+  <body>
+    <noscript style="position: fixed; background: black; width: 100vw; height: 100vh; padding: 20px; top: 0; left: 0; color: white;">
+      <h1>SCANDALOUS! your scripts are disabled!</h1>
+      <hr>
+      <div>You've disabled scripts, which are required to use PWupload. Please re-enable them and reload.</div>
+    </noscript>
+
+    <div class="attraction">
+      <h1>File Manager | PWupload</h1>
+
+      <!-- actions -->
+      <div>
+        <a class="button" href="upload.html">i just want to upload my report</a>
+        <a class="button" href="logout.php">logout</a>
+      </div>
+
+      <!-- info -->
+      <h2 style="margin-top: 30px;">Files</h2>
+      <div id="form-report_status" style="border: 1px solid white; margin-top: 10px; border-radius: 5px; padding: 10px;">
+        The PWupload File Manager is not ready yet. Please go back.
+      </div>
+      <div id="form-report_directory" style="font-size: 0.75rem; margin-top: 10px;">Loading Directory...</div>
+    </div>
+
+    <script>
+      // check for existing session
+      let check_session = new FormData();
+      check_session.append("action", "ls");
+
+      fetch('api.php', {
+        method: 'post',
+        body: check_session,
+        credentials: 'include'
+      }).then(response => response.json()).then(data => {
+        if (data.user == "none") window.location.href = "index.html";
+        else {
+          
+        }
+      });
+    </script>
+  </body>
+</html>

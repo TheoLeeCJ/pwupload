@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>PWupload</title>
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+    <link href="basic.css" rel="stylesheet" />
+
+    <script>
+      if ((location.protocol != 'https:') && (location.href.includes("pwupload"))) {
+        location.href = 'https:' + window.location.href.substring(window.location.protocol.length);
+      }
+    </script>
+  </head>
+
+  <body>
+    <noscript style="position: fixed; background: black; width: 100vw; height: 100vh; padding: 20px; top: 0; left: 0; color: white;">
+      <h1>SCANDALOUS! your scripts are disabled!</h1>
+      <hr>
+      <div>You've disabled scripts, which are required to use PWupload. Please re-enable them and reload.</div>
+    </noscript>
+
+    <form class="attraction" onsubmit="event.preventDefault(); submit_login(event, this);">
+      <h1>PWupload</h1>
+      <div style="margin-top: 20px;">upload your project work reports easily using PWupload!</div>
+      
+      <input style="margin-top: 20px;" name="user" placeholder="group ID (e.g. grp9-12)" />
+      <input type="password" name="pass" placeholder="password (group leader's email ID)" />
+
+      <div style="margin-top: 20px; color: red; display: none;" id="login-message"></div>
+
+      <button id="login-button" type="submit">LOGIN</button>
+
+      <!-- links -->
+      <div style="margin-top: 10px;">
+        <a style="color: white;" href="message.php" target="_blank">leave message</a>
+      </div>
+
+      <!-- disclaimer -->
+      <div style="margin-top: 10px; font-size: 0.75rem;">
+        disclaimer: while this is a nice tool and all, it has not been endorsed by the school.
+        <br>CT251 Train Background by Construcciones y Auxiliar de Ferrocarriles
+      </div>
+    </form>
+
+    <script>
+      // check for existing session
+      let check_session = new FormData();
+      check_session.append("action", "check session");
+
+      fetch('api.php', {
+        method: 'post',
+        body: check_session,
+        credentials: 'include'
+      }).then(response => response.json()).then(data => {
+        if (data.user !== "none") window.location.href = "upload.html";
+      });
+      
+      // login form
+      function submit_login(event, sender) {
+        // update UI
+        document.getElementById("login-button").setAttribute("disabled", "");
+        document.getElementById("login-button").innerText = "loading... please be patient.";
+        document.getElementById("login-message").style.display = "none";
+
+        // check for empty fields
+        let form = new FormData(sender);
+        
+        // update UI
+        if ((form.get("user").trim() == "") || (form.get("pass").trim() == "")) {
+          document.getElementById("login-message").innerText = "please enter both your group ID and password.";
+          document.getElementById("login-button").removeAttribute("disabled");
+          document.getElementById("login-button").innerText = "LOGIN";
+          document.getElementById("login-message").style.display = "block";
+        }
+        // submit form
+        else {
+          form.append("action", "login");
+
+          fetch('api.php', {
+            method: 'post',
+            body: form,
+            credentials: 'include'
+          }).then(response => response.json()).then(data => {
+            // display "error"
+            if (data.status == "error") {
+              document.getElementById("login-message").innerText = data.error;
+              document.getElementById("login-button").removeAttribute("disabled");
+              document.getElementById("login-button").innerText = "LOGIN";
+              document.getElementById("login-message").style.display = "block";
+            }
+            // proceed
+            else {
+              window.location.href = "upload.html";
+            }
+          });
+        }
+      }
+    </script>
+  </body>
+</html>
