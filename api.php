@@ -23,8 +23,8 @@
           else {
             // proceed
             if ($host == "projectsday.hci.edu.sg") { $_POST["pass"] = strtoupper($_POST["pass"]); }
-            else { ftp_pasv($ftp, true); }
             if (@ftp_login($ftp, strtolower($_POST["user"]), $_POST["pass"])) {
+              if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
               ftp_close($ftp); // be a polite user
               $_SESSION["user"] = strtolower($_POST["user"]);
               $_SESSION["pass"] = $_POST["pass"];
@@ -63,7 +63,6 @@
       $time_start = microtime(true);
       if (isset($_SESSION["user"])) {
         $ftp = ftp_connect($host, 21, 5); $connect_time = microtime(true) - $time_start;
-        if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -73,6 +72,7 @@
         else {
           // proceed
           if (@ftp_login($ftp, $_SESSION["user"], $_SESSION["pass"])) { $login_time = microtime(true) - $time_start - $connect_time;
+            if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
             $listing = ftp_nlist($ftp, "."); $dir_time = microtime(true) - $time_start - $login_time;
             $current_dir = ftp_pwd($ftp); $pwd_time = microtime(true) - $time_start - $dir_time;
             ftp_close($ftp); $close_time = microtime(true) - $time_start - $pwd_time; // be a polite user
@@ -114,7 +114,6 @@
       // yes there's a session, try to list directory
       if (isset($_SESSION["user"])) {
         $ftp = ftp_connect($host, 21, 5);
-        if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -124,6 +123,7 @@
         else {
           // proceed
           if (@ftp_login($ftp, $_SESSION["user"], $_SESSION["pass"])) {
+            if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
             // handle file
             if (@ftp_delete($ftp, "index.pdf")) {
               ftp_close($ftp); // be a polite user
@@ -159,7 +159,6 @@
       // yes there's a session, try to list directory
       if (isset($_SESSION["user"])) {
         $ftp = ftp_connect($host, 21, 5);
-        if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -169,6 +168,7 @@
         else {
           // proceed
           if (@ftp_login($ftp, $_SESSION["user"], $_SESSION["pass"])) {
+            if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
             error_reporting(E_ALL);
             ini_set('display_errors', TRUE);
             var_dump($_FILES);
