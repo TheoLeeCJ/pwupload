@@ -22,12 +22,8 @@
           // continue with username & password
           else {
             // proceed
-            if ($host == "projectsday.hci.edu.sg") {
-              $_POST["pass"] = strtoupper($_POST["pass"]);
-            }
-            else {
-              ftp_pasv($ftp, true);
-            }
+            if ($host == "projectsday.hci.edu.sg") { $_POST["pass"] = strtoupper($_POST["pass"]); }
+            else { ftp_pasv($ftp, true); }
             if (@ftp_login($ftp, strtolower($_POST["user"]), $_POST["pass"])) {
               ftp_close($ftp); // be a polite user
               $_SESSION["user"] = strtolower($_POST["user"]);
@@ -67,6 +63,7 @@
       $time_start = microtime(true);
       if (isset($_SESSION["user"])) {
         $ftp = ftp_connect($host, 21, 5); $connect_time = microtime(true) - $time_start;
+        if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -117,6 +114,7 @@
       // yes there's a session, try to list directory
       if (isset($_SESSION["user"])) {
         $ftp = ftp_connect($host, 21, 5);
+        if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -161,6 +159,7 @@
       // yes there's a session, try to list directory
       if (isset($_SESSION["user"])) {
         $ftp = ftp_connect($host, 21, 5);
+        if ($host !== "projectsday.hci.edu.sg") { ftp_pasv($ftp, true); }
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
