@@ -11,7 +11,7 @@
       else {
         if (empty($_POST["user"]) || empty($_POST["pass"])) echo("Invalid request! Just what are you trying to do? Don't molest me!");
         else {
-          $ftp = ftp_connect("test.rebex.net", 21, 5);
+          $ftp = ftp_connect("ftp.dlptest.com", 21, 5);
           // PW server is down
           if (!$ftp) echo(json_encode(array(
             "status" => "error",
@@ -58,7 +58,7 @@
       // yes there's a session, try to list directory
       $time_start = microtime(true);
       if (isset($_SESSION["user"])) {
-        $ftp = ftp_connect("test.rebex.net", 21, 5); $connect_time = microtime(true) - $time_start;
+        $ftp = ftp_connect("ftp.dlptest.com", 21, 5); $connect_time = microtime(true) - $time_start;
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -108,7 +108,7 @@
     else if ($_POST["action"] == "delete report") {
       // yes there's a session, try to list directory
       if (isset($_SESSION["user"])) {
-        $ftp = ftp_connect("test.rebex.net", 21, 5);
+        $ftp = ftp_connect("ftp.dlptest.com", 21, 5);
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
@@ -152,7 +152,7 @@
     else if ($_POST["action"] == "upload pdf") {
       // yes there's a session, try to list directory
       if (isset($_SESSION["user"])) {
-        $ftp = ftp_connect("test.rebex.net", 21, 5);
+        $ftp = ftp_connect("ftp.dlptest.com", 21, 5);
         // PW server is down
         if (!$ftp) echo(json_encode(array(
           "status" => "error",
