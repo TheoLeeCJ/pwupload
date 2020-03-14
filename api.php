@@ -3,7 +3,8 @@
   else {
     session_start();
     
-    $host = "ftp.dlptest.com";
+    // $host = "ftp.dlptest.com";
+    $host = "projectsday.hci.edu.sg";
 
     // attempt login, assign to session
     if ($_POST["action"] == "login") {
