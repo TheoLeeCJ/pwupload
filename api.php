@@ -22,7 +22,12 @@
           // continue with username & password
           else {
             // proceed
-            if ($host == "projectsday.hci.edu.sg") $_POST["pass"] = strtoupper($_POST["pass"]);
+            if ($host == "projectsday.hci.edu.sg") {
+              $_POST["pass"] = strtoupper($_POST["pass"]);
+            }
+            else {
+              ftp_pasv($ftp, true);
+            }
             if (@ftp_login($ftp, strtolower($_POST["user"]), $_POST["pass"])) {
               ftp_close($ftp); // be a polite user
               $_SESSION["user"] = strtolower($_POST["user"]);
