@@ -88,8 +88,7 @@
               "dir_time" => $dir_time,
               "pwd_time" => $pwd_time,
               "close_time" => $close_time,
-              "update_time" => $update_time,
-              "AAA" => "AAA"
+              "update_time" => $update_time
             )));
           }
           // either is incorrect
