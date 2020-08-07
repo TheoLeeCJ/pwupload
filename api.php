@@ -12,7 +12,7 @@
       if (isset($_SESSION["user"])) echo("Just what are you trying to do?");
       // attempt login
       else {
-        if (empty($_POST["user"]) || empty($_POST["pass"])) echo("Invalid request! Just what are you trying to do? Don't molest me!");
+        if (empty($_POST["user"]) || empty($_POST["pass"])) echo("Invalid request! Just what are you trying to do?");
         else {
           $ftp = ftp_connect($host, 21, 5);
           // PW server is down
@@ -37,7 +37,7 @@
             // either is incorrect
             else echo(json_encode(array(
               "status" => "error",
-              "error" => "your username or password is / are incorrect. my grammar is very good."
+              "error" => "your username or password is / are incorrect."
             )));
           }
         }
@@ -96,7 +96,7 @@
             ftp_close($ftp); // be a polite user
             echo(json_encode(array(
               "status" => "error",
-              "error" => "your username or password is / are incorrect. my grammar is very good."
+              "error" => "your username or password is / are incorrect."
             )));
           } 
         }
@@ -141,7 +141,7 @@
             ftp_close($ftp); // be a polite user
             echo(json_encode(array(
               "status" => "error",
-              "error" => "your username or password is / are incorrect. my grammar is very good."
+              "error" => "your username or password is / are incorrect."
             )));
           }
         }
@@ -191,7 +191,7 @@
             ftp_close($ftp); // be a polite user
             echo(json_encode(array(
               "status" => "error",
-              "error" => "your username or password is / are incorrect. my grammar is very good."
+              "error" => "your username or password is / are incorrect."
             )));
           }
         }
