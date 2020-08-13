@@ -60,9 +60,9 @@
             if (data.files[i] == "index.pdf") {
               let report_url = "http://projectsday.hci.edu.sg" + data.directory.replace("/home/www/html", "") + "/index.pdf";
               document.getElementById("form-report_status").innerHTML = `
-                We think your report is uploaded! It may be viewed at <a style="color: white;" target="_blank" href="${report_url}">${report_url}</a>.
+                Your report is uploaded! It may be viewed at <a style="color: white;" target="_blank" href="${report_url}">${report_url}</a>.
                 <br><br>You can use the tool below to replace your existing report with a new one.
-                <br><br>Link not working? Try opening it in Incognito / Private Browsing Mode.
+                <br><span style="font-size: 0.75rem; margin-top: 10px;">Link not working? Try opening it in Incognito / Private Browsing Mode.</span>
               `;
             }
           }
