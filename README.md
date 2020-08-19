@@ -11,4 +11,4 @@ This tool was made due to how the "official" upload process requires users to un
 | Year | Users / Total No. of Groups           |
 |------|---------------------------------------|
 | 2019 | ~129 / ~400                           |
-| 2020 | Not yet. Check back in late-August... |
+| 2020 | (pending full number) / ~450          |
