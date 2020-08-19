@@ -12,3 +12,4 @@ This tool was made due to how the "official" upload process requires users to un
 |------|---------------------------------------|
 | 2019 | ~129 / ~400                           |
 | 2020 | (pending full number) / ~450          |
+| 2021 | --- / ---                             |
