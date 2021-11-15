@@ -12,4 +12,5 @@ This tool was made due to how the "official" upload process requires users to un
 |------|---------------------------------------|
 | 2019 | ~130 / ~450                           |
 | 2020 | ~100 / ~450                           |
-| 2021 | --- / ---                             |
+| 2021 | ~110 / ~450                           |
+| 2022 | ---- / ----                           |
